@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane centerShape="false" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane layoutY="25.0" prefHeight="775.0" prefWidth="1000.0">
+         <left>
+            <ImageView fitHeight="300.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="TOP_CENTER">
+               <image>
+                  <Image url="@../../../../../OneDrive/TSK%20Solutions/league_bowler/Java/src/presentation/images/bowling_smash.png" />
+               </image>
+               <BorderPane.margin>
+                  <Insets top="50.0" />
+               </BorderPane.margin>
+            </ImageView>
+         </left>
+         <right>
+            <VBox alignment="BOTTOM_RIGHT" blendMode="SRC_ATOP" spacing="5.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="leagueAdmin" centerShape="false" mnemonicParsing="false" prefWidth="150.0" text="League Administration" textAlignment="CENTER" />
+                  <Button fx:id="bowlerAdmin" centerShape="false" mnemonicParsing="false" prefWidth="150.0" text="Bowler Administration" textAlignment="CENTER" />
+                  <Button fx:id="gameDay" centerShape="false" mnemonicParsing="false" prefWidth="150.0" text="Game Day" textAlignment="CENTER" />
+                  <Button fx:id="exit" cancelButton="true" centerShape="false" layoutX="84.0" layoutY="415.0" mnemonicParsing="false" prefWidth="150.0" text="Exit" textAlignment="CENTER" />
+               </children>
+            </VBox>
+         </right>
+         <top>
+            <Label alignment="BOTTOM_CENTER" centerShape="false" text="Welcome to League Bowler" textAlignment="CENTER" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Garamond" size="75.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets top="35.0" />
+               </BorderPane.margin>
+            </Label>
+         </top>
+         <center>
+            <TextArea editable="false" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 0;" text="This application will allow you to set set up a simple league structure consisting of single bowlers.  The league format is a qualification round followed by a ladder playoff round." wrapText="true" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+               </BorderPane.margin>
+               <font>
+                  <Font name="Cambria" size="18.0" />
+               </font>
+            </TextArea>
+         </center>
+      </BorderPane>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>
