@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane centerShape="false" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label alignment="TOP_CENTER" contentDisplay="TEXT_ONLY" focusTraversable="false" maxWidth="1.7976931348623157E308" prefHeight="88.0" prefWidth="1000.0" text="Welcome to League Bowler" textAlignment="CENTER" AnchorPane.topAnchor="100.0">
+         <font>
+            <Font name="Garamond" size="75.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="300.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="300.0">
+         <image>
+            <Image url="@../../../../../resources/images/bowling_smash.png" />
+         </image>
+      </ImageView>
+      <TextArea editable="false" focusTraversable="false" prefHeight="200.0" prefWidth="500.0" style="-fx-border-width: 0; -fx-background-color: white;" text="This application will allow you to set set up a simple league structure consisting of single bowlers.  The league format is a qualification round followed by a ladder playoff round." wrapText="true" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="350.0">
+         <font>
+            <Font name="Cambria" size="18.0" />
+         </font>
+      </TextArea>
+   </children>
+</AnchorPane>
