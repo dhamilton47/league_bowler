@@ -27,15 +27,18 @@ public class League {
     private final IntegerProperty leagueID;
     private final StringProperty leagueName;
     private final StringProperty sanctionCenter;
+    private final IntegerProperty totalWeeks;
     private final BooleanProperty hasHandicap;
-    private final IntegerProperty handicapTarget;
+    private final FloatProperty handicapTarget;
     private final FloatProperty handicapPercent;
+    private final FloatProperty handicapMax;
+    private final StringProperty user;
 
     /**
      * Default constructor.
      */
     public League() {
-        this(0, null);
+        this(0, null, null, 0, false, 0f, 0f, 0f);
     }
 
     /**
@@ -44,15 +47,17 @@ public class League {
      * @param leagueID
      * @param leagueName
      */
-    public League(int leagueID, String leagueName) {
+    public League(int leagueID, String leagueName, String sanctionCenter, int totalWeeks, 
+    		boolean hasHandicap, float handicapTarget, float handicapPercent, float handicapMax) {
         this.leagueID = new SimpleIntegerProperty(leagueID);
         this.leagueName = new SimpleStringProperty(leagueName);
-
-        // Some initial dummy data, just for convenient testing.
-        this.sanctionCenter = new SimpleStringProperty("some bowling alley");
-        this.hasHandicap = new SimpleBooleanProperty(true);
-        this.handicapTarget = new SimpleIntegerProperty(200);
-        this.handicapPercent = new SimpleFloatProperty(0.95f);
+        this.sanctionCenter = new SimpleStringProperty(sanctionCenter);
+        this.totalWeeks = new SimpleIntegerProperty(totalWeeks);
+        this.hasHandicap = new SimpleBooleanProperty(hasHandicap);
+        this.handicapTarget = new SimpleFloatProperty(handicapTarget);
+        this.handicapPercent = new SimpleFloatProperty(handicapPercent);
+        this.handicapMax = new SimpleFloatProperty(handicapMax);
+        this.user = new SimpleStringProperty("Dan");
     }
 
     public int getLeagueID() {
@@ -91,6 +96,18 @@ public class League {
         return sanctionCenter;
     }
 
+    public int getTotalWeeks() {
+        return totalWeeks.get();
+    }
+
+    public void setTotalWeeks(int totalWeeks) {
+        this.totalWeeks.set(totalWeeks);
+    }
+
+    public IntegerProperty totalWeeksProperty() {
+        return totalWeeks;
+    }
+
     public boolean getHasHandicap() {
         return hasHandicap.get();
     }
@@ -103,15 +120,15 @@ public class League {
         return hasHandicap;
     }
 
-    public int getHandicapTarget() {
+    public float getHandicapTarget() {
         return handicapTarget.get();
     }
 
-    public void setHandicapTarget(int handicapTarget) {
+    public void setHandicapTarget(float handicapTarget) {
         this.handicapTarget.set(handicapTarget);
     }
 
-    public IntegerProperty handicapTargetProperty() {
+    public FloatProperty handicapTargetProperty() {
         return handicapTarget;
     }
 
@@ -126,4 +143,28 @@ public class League {
     public FloatProperty handicapPercentProperty() {
         return handicapPercent;
     }
+    public float getHandicapMax() {
+        return handicapMax.get();
+    }
+
+    public void setHandicapMax(float handicapMax) {
+        this.handicapMax.set(handicapMax);
+    }
+
+    public FloatProperty handicapMaxProperty() {
+        return handicapMax;
+    }
+
+    public String getUser() {
+        return user.get();
+    }
+
+    public void setUser(String user) {
+        this.user.set(user);
+    }
+
+    public StringProperty userProperty() {
+        return user;
+    }
+
 }

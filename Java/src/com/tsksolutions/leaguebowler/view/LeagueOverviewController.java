@@ -14,23 +14,25 @@ import com.tsksolutions.leaguebowler.model.League;
 public class LeagueOverviewController {
     @FXML
     private TableView<League> leagueTable;
-    @FXML
-    private TableColumn<League, Integer> leagueIDColumn;
+//    @FXML
+//    private TableColumn<League, Integer> leagueIDColumn;
     @FXML
     private TableColumn<League, String> leagueNameColumn;
 
     @FXML
-    private Label leagueIDLabel;
-    @FXML
     private Label leagueNameLabel;
     @FXML
     private Label sanctionCenterLabel;
+    @FXML
+    private Label totalWeeksLabel;
     @FXML
     private Label hasHandicapLabel;
     @FXML
     private Label handicapTargetLabel;
     @FXML
     private Label handicapPercentLabel;
+    @FXML
+    private Label handicapMaxLabel;
 
     // Reference to the main application.
     private MainApp mainApp;
@@ -81,20 +83,24 @@ public class LeagueOverviewController {
     private void showLeagueDetails(League league) {
     	if (league != null) {
     		// Fill the labels with info from the person object.
-    		leagueIDLabel.setText(Integer.toString(league.getLeagueID()));
+//    		leagueIDLabel.setText(Integer.toString(league.getLeagueID()));
     		leagueNameLabel.setText(league.getLeagueName());
     		sanctionCenterLabel.setText(league.getSanctionCenter());
+    		totalWeeksLabel.setText(Integer.toString(league.getTotalWeeks()));
     		hasHandicapLabel.setText(Boolean.toString(league.getHasHandicap()));
-    		handicapTargetLabel.setText(Integer.toString(league.getHandicapTarget()));
+    		handicapTargetLabel.setText(Float.toString(league.getHandicapTarget()));
     		handicapPercentLabel.setText(Float.toString(league.getHandicapPercent()));
+    		handicapMaxLabel.setText(Float.toString(league.getHandicapMax()));
     	} else {
     		// league id null, remove all the text.
-    		leagueIDLabel.setText("");
+//    		leagueIDLabel.setText("");
     		leagueNameLabel.setText("");
     		sanctionCenterLabel.setText("");
+    		totalWeeksLabel.setText("");
     		hasHandicapLabel.setText("");
     		handicapTargetLabel.setText("");
     		handicapPercentLabel.setText("");
+    		handicapMaxLabel.setText("");
     	}
     }
     

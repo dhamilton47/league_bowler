@@ -3,6 +3,8 @@ package com.tsksolutions.leaguebowler.view;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import com.tsksolutions.leaguebowler.model.Bowler;
@@ -16,17 +18,39 @@ import com.tsksolutions.leaguebowler.util.DateUtil;
 public class BowlerEditDialogController {
 
     @FXML
+    private ComboBox bowlerTypeBox;
+    @FXML
     private TextField firstNameField;
+    @FXML
+    private TextField middleNameField;
     @FXML
     private TextField lastNameField;
     @FXML
-    private TextField streetField;
+    private TextField suffixNameField;
     @FXML
-    private TextField postalCodeField;
+    private TextField nicknameField;
+//    TODO: set up option group for sex field
     @FXML
-    private TextField cityField;
+    private TextField sexField;
     @FXML
-    private TextField birthdayField;
+    private DatePicker birthdayPicker;
+
+    @FXML
+  	private TextField addressLine1Field;
+  	@FXML
+  	private TextField addressLine2Field;
+  	@FXML
+  	private TextField cityField;
+  	@FXML
+  	private TextField stateField;
+  	@FXML
+  	private TextField zipCodeField;
+
+// TODO: Fix the phone and email classes for inclusion
+//  @FXML
+//  private TextField phoneField;
+//  @FXML
+//  private TextField emailField;
 
 
     private Stage dialogStage;
@@ -58,13 +82,15 @@ public class BowlerEditDialogController {
     public void setBowler(Bowler bowler) {
         this.bowler = bowler;
 
+        bowlerTypeBox.setValue(bowler.getBowlerType());
         firstNameField.setText(bowler.getFirstName());
+        middleNameField.setText(bowler.getMiddleName());
         lastNameField.setText(bowler.getLastName());
-        streetField.setText(bowler.getStreet());
-        postalCodeField.setText(Integer.toString(bowler.getPostalCode()));
-        cityField.setText(bowler.getCity());
-        birthdayField.setText(DateUtil.format(bowler.getBirthday()));
-        birthdayField.setPromptText("dd.mm.yyyy");
+        suffixNameField.setText(bowler.getSuffixName());
+        nicknameField.setText(bowler.getNickname());
+        sexField.setText(bowler.getSex());
+        birthdayPicker.setValue(bowler.getBirthday());
+//        dateOfBirthPicker.setPromptText("dd.mm.yyyy");
     }
 
     /**
@@ -82,14 +108,22 @@ public class BowlerEditDialogController {
     @FXML
     private void handleOk() {
         if (isInputValid()) {
+        	bowler.setBowlerType((String)bowlerTypeBox.getValue());
         	bowler.setFirstName(firstNameField.getText());
+        	bowler.setMiddleName(middleNameField.getText());
         	bowler.setLastName(lastNameField.getText());
-        	bowler.setStreet(streetField.getText());
-        	bowler.setPostalCode(Integer.parseInt(postalCodeField.getText()));
-        	bowler.setCity(cityField.getText());
-        	bowler.setBirthday(DateUtil.parse(birthdayField.getText()));
+        	bowler.setSuffixName(suffixNameField.getText());
+        	bowler.setNickname(nicknameField.getText());
+        	bowler.setSex(sexField.getText());
+        	bowler.setBirthday(birthdayPicker.getValue());
 
-            okClicked = true;
+        	bowler.setAddressLine1(addressLine1Field.getText());
+        	bowler.setAddressLine2(addressLine2Field.getText());
+        	bowler.setCity(cityField.getText());
+        	bowler.setState(stateField.getText());
+        	bowler.setZipCode(Integer.parseInt(zipCodeField.getText()));
+
+        	okClicked = true;
             dialogStage.close();
         }
     }
@@ -108,38 +142,56 @@ public class BowlerEditDialogController {
      * @return true if the input is valid
      */
     private boolean isInputValid() {
+   	// Since we are using a datepicker object to obtain the value for the birthday, we should not have to test if it is a valid date.
         String errorMessage = "";
-
+        
+        /*
+         * Nickname, suffix name and address line 2 are not required fields, so we will not test for validity, however, nickname will be set to first name if empty.
+         */
         if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
             errorMessage += "No valid first name!\n"; 
         }
+
+        if (middleNameField.getText() == null || middleNameField.getText().length() == 0) {
+            errorMessage += "No valid middle name!\n"; 
+        }
+
         if (lastNameField.getText() == null || lastNameField.getText().length() == 0) {
             errorMessage += "No valid last name!\n"; 
         }
-        if (streetField.getText() == null || streetField.getText().length() == 0) {
-            errorMessage += "No valid street!\n"; 
+
+        if (nicknameField.getText() == null || nicknameField.getText().length() == 0) {
+            nicknameField.setText(firstNameField.getText()); 
         }
 
-        if (postalCodeField.getText() == null || postalCodeField.getText().length() == 0) {
-            errorMessage += "No valid postal code!\n"; 
-        } else {
-            // try to parse the postal code into an int.
-            try {
-                Integer.parseInt(postalCodeField.getText());
-            } catch (NumberFormatException e) {
-                errorMessage += "No valid postal code (must be an integer)!\n"; 
-            }
+        if (sexField.getText() == null || sexField.getText().length() == 0) {
+            errorMessage += "No valid gender chosen!\n"; 
+        }
+
+        if (birthdayPicker.getValue() == null) {
+            errorMessage += "No valid birthday!\n";
+        }
+
+        if (addressLine1Field.getText() == null || addressLine1Field.getText().length() == 0) {
+             errorMessage += "No valid street!\n"; 
         }
 
         if (cityField.getText() == null || cityField.getText().length() == 0) {
             errorMessage += "No valid city!\n"; 
         }
 
-        if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {
-            errorMessage += "No valid birthday!\n";
+        if (stateField.getText() == null || stateField.getText().length() != 2) {
+            errorMessage += "No valid state abbreviation!\n"; 
+        }
+
+        if (zipCodeField.getText() == null || zipCodeField.getText().length() == 0) {
+            errorMessage += "No valid zip code!\n"; 
         } else {
-            if (!DateUtil.validDate(birthdayField.getText())) {
-                errorMessage += "No valid birthday. Use the format dd.mm.yyyy!\n";
+            // try to parse the postal code into an int.
+            try {
+                Integer.parseInt(zipCodeField.getText());
+            } catch (NumberFormatException e) {
+                errorMessage += "No valid zip code (must be an integer)!\n"; 
             }
         }
 

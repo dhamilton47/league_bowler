@@ -125,4 +125,29 @@ public class MainStageLayoutController {
     private void handleShowBirthdayStatistics() {
 //      mainApp.showBirthdayStatistics();
     }
+    
+    /**
+     * Show the LeagueOverview scene
+     */
+    @FXML
+    private void handleShowLeagueOverview() {
+    	mainApp.showLeagueOverview();
+    }
+    
+    /**
+     * Show the BowlerOverview scene
+     */
+    @FXML
+    private void handleShowBowlerOverview() {
+    	mainApp.showBowlerOverview();
+    }
+
+    /**
+     * Show the GameDayOverview scene
+     */
+    @FXML
+    private void handleShowGameDayOverview() {
+    	mainApp.showGameDayOverview();
+    }
+
 }

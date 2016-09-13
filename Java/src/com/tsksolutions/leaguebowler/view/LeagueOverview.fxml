@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tsksolutions.leaguebowler.view.LeagueOverviewController">
+<AnchorPane prefHeight="740.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tsksolutions.leaguebowler.view.LeagueOverviewController">
    <children>
       <SplitPane dividerPositions="0.35" layoutX="49.0" layoutY="21.0" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -43,20 +43,23 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="League ID" />
-                        <Label text="League Name" GridPane.rowIndex="1" />
-                        <Label text="Bowling Center" GridPane.rowIndex="2" />
-                        <Label fx:id="leagueIDLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" />
-                        <Label fx:id="leagueNameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="sanctionCenterLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="League Name" />
+                        <Label text="Bowling Center" GridPane.rowIndex="1" />
+                        <Label text="Total Weeks" GridPane.rowIndex="2" />
+                        <Label fx:id="leagueNameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="sanctionCenterLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="totalWeeksLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Has Handicap" GridPane.rowIndex="3" />
                         <Label text="Handicap Target" GridPane.rowIndex="4" />
                         <Label text="Handicap Percent" GridPane.rowIndex="5" />
                         <Label fx:id="hasHandicapLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label fx:id="handicapTargetLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label fx:id="handicapPercentLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label text="Handicap Max" GridPane.rowIndex="6" />
+                        <Label fx:id="handicapMaxLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                      </children>
                   </GridPane>
                </children>

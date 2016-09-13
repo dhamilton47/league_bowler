@@ -2,6 +2,13 @@ package com.tsksolutions.leaguebowler;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.prefs.Preferences;
 
 import javax.xml.bind.JAXBContext;
@@ -24,7 +31,7 @@ import com.tsksolutions.leaguebowler.view.WeekEditDialogController;
 import com.tsksolutions.leaguebowler.view.GameDayOverviewController;
 
 //import com.tsksolutions.leaguebowler.view.MainStageLayoutController;
-import com.tsksolutions.leaguebowler.view.MainStageLayoutController2;
+import com.tsksolutions.leaguebowler.view.MainStageLayoutController;
 //import com.tsksolutions.leaguebowler.view.WeekEditDialogController;
 //import com.tsksolutions.leaguebowler.view.WelcomeController;
 
@@ -45,6 +52,23 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane mainStageLayout;
+
+    private Statement stmt;
+    private PreparedStatement getBowlerTable;
+    private PreparedStatement getLeagueTable;
+    private PreparedStatement getGameDayTable;
+    private PreparedStatement addBowlerTable;
+    private PreparedStatement addLeagueTable;
+    private PreparedStatement addGameDayTable;
+    private PreparedStatement updateBowlerTable;
+    private PreparedStatement updateLeagueTable;
+    private PreparedStatement updateGameDayTable;
+    private PreparedStatement deleteBowlerTable;
+    private PreparedStatement deleteLeagueTable;
+    private PreparedStatement deleteGameDayTable;
+	
+	private String username = "Dan";
+	private String password = "trouble";
 
     /**
      * The data are observable lists of Bowlers and Leagues.
@@ -97,8 +121,10 @@ public class MainApp extends Application {
         initMainStageLayout();
 
         showWelcome();
-//        showLeagueOverview();
-	}
+
+		initDB(username, password);
+
+}
 
 	public static void main(String[] args) {
 		launch(args);
@@ -119,8 +145,7 @@ public class MainApp extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/MainStageLayout2.fxml"));
-//            loader.setLocation(MainApp.class.getResource("view/MainStageLayout.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/MainStageLayout.fxml"));
             mainStageLayout = (BorderPane) loader.load();
 
             // Show the scene containing the root layout.
@@ -128,7 +153,7 @@ public class MainApp extends Application {
             primaryStage.setScene(scene);
             
             // Give the controller access to the main app.
-            MainStageLayoutController2 controller = loader.getController();
+            MainStageLayoutController controller = loader.getController();
             controller.setMainApp(this);
             
             primaryStage.show();
@@ -137,14 +162,15 @@ public class MainApp extends Application {
         }
         
         // Try to load the last opened person file.
-        File file = getPersonFilePath();
+/*        File file = getPersonFilePath();
         if (file != null) {
         	loadBowlerDataFromFile(file);
         }
+*/
     }
 
     /**
-     * Shows the bowler overview inside the main stage layout.
+     * Shows the welcome scene on initial load of main stage.
      */
     public void showWelcome() {
         try {
@@ -156,10 +182,6 @@ public class MainApp extends Application {
             // Set welcome into the center of root layout.
             mainStageLayout.setCenter(welcome);
 
-            // Give the controller access to the main app.
-//            WelcomeController controller = loader.getController();
-//            controller.setMainApp(this);
-            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -182,6 +204,9 @@ public class MainApp extends Application {
             BowlerOverviewController controller = loader.getController();
             controller.setMainApp(this);
             
+            // Try to load the bowler table.
+        	loadBowlerData();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -243,6 +268,9 @@ public class MainApp extends Application {
             LeagueOverviewController controller = loader.getController();
             controller.setMainApp(this);
             
+            // Try to load the league table.
+        	loadLeagueData();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -474,4 +502,276 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Initializes the database connection with MySQL and creates a stmt object.
+     */
+    private void initDB(String username, String password) {
+		try {
+			// Load the JDBC driver
+			Class.forName("com.mysql.jdbc.Driver");
+			System.out.println("Database Driver Loaded");
+		
+			// Establish a connection
+			Connection connection = DriverManager.getConnection
+					("jdbc:mysql://localhost:3306/leaguebowler", username, password);
+			System.out.println("Database Connected");
+			
+			// Create a statement
+			stmt = connection.createStatement();
+			
+			/*
+			 * Create the prepared statements for the various queries.
+			 */
+			
+			// Bowler table select query
+			String query = "SELECT bowlerID, bowlerType, firstName, middleName, lastName, suffixName, nickname, sex, dateOfBirth, user, lastUpdate " +
+					"FROM bowler";
+			
+			getBowlerTable = connection.prepareStatement(query);
+			
+			// Bowler table add query
+			query = "INSERT INTO bowler " +
+					"(bowlerType, firstName, middleName, lastName, suffixName, nickname, sex, dateOfBirth, user) " +
+					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, user);";
+			
+			addBowlerTable = connection.prepareStatement(query);
+			
+			// Bowler table update query
+			query = "UPDATE bowler " +
+					"SET bowlerType = ?, firstName = ?, middleName = ?, lastName = ?, suffixName = ?, " +
+						"nickname = ?, sex = ?, dateOfBirth = ?, user = ? " +
+					"WHERE bowlerID = ?;";
+			
+			updateBowlerTable = connection.prepareStatement(query);
+			
+			// Bowler table delete query
+			query = "DELETE FROM bowler WHERE bowlerID = ?;";
+			
+			deleteBowlerTable = connection.prepareStatement(query);
+			
+			// League table select query
+			query = "SELECT leagueID, leagueName, sanctionCenter, totalWeeks, hasHandicap, handicapTarget, handicapPercent, handicapMax, user, lastUpdate " +
+					"FROM league";
+			
+			getLeagueTable = connection.prepareStatement(query);
+			
+			// League table add query
+			query = "INSERT INTO league " +
+					"(leagueName, sanctionCenter, totalWeeks, hasHandicap, handicapTarget, handicapPercent, handicapMax, user) " +
+					"VALUES (?, ?, ?, ?, ?, ?, ?, user);";
+			
+			addLeagueTable = connection.prepareStatement(query);
+			
+			// League table update query
+			query = "UPDATE league " +
+					"SET leagueName = ?, sanctionCenter = ?, totalWeeks = ?, hasHandicap = ?, handicapTarget = ?, handicapPercent = ?, handicapMax = ?, user = ? " +
+					"WHERE leagueID = ?;";
+			
+			updateLeagueTable = connection.prepareStatement(query);
+			
+			// League table delete query
+			query = "DELETE FROM league WHERE bowlerID = ?;";
+			
+			deleteLeagueTable = connection.prepareStatement(query);
+			
+			// Game day table select query
+			query = "SELECT id, leagueID, bowlerID, " +
+						"weekNum, game1, game2, game3, " +
+						"scratchPinfallBegin, scratchPinfallWeek, scratchPinfallEnd, " + 
+						"gameCountBegin, gameCountWeek, gameCountEnd, " +
+						"scratchAverageBegin, scratchAverageEnd, isLocked, user, lastUpdate " +
+					"FROM weekly_results";
+			
+			getGameDayTable = connection.prepareStatement(query);
+			
+			// Game day add query
+			query = "INSERT INTO weekly_results " +
+					"(leagueID, bowlerID, " +
+					"weekNum, game1, game2, game3, " +
+					"scratchPinfallBegin, scratchPinfallWeek, scratchPinfallEnd," + 
+					"gameCountBegin, gameCountWeek, gameCountEnd, " +
+					"scratchAverageBegin, scratchAverageEnd, isLocked, user) " +
+					"VALUES (?, ?, " +
+					"?, ?, ?, ?, " +
+					"?, ?, ?, " + 
+					"?, ?, ?, " + 
+					"?, ?, ?, user);"; 
+			
+			addGameDayTable = connection.prepareStatement(query);
+			
+			// Game day update query
+			query = "UPDATE weekly_results " +
+					"SET leagueID = ?, bowlerID = ?, " +
+						"weekNum = ?, game1 = ?, game2 = ?, game3 = ?, " +
+						"scratchPinfallBegin = ?, scratchPinfallWeek = ?, scratchPinfallEnd = ?," + 
+						"gameCountBegin = ?, gameCountWeek = ?, gameCountEnd = ?, " +
+						"scratchAverageBegin = ?, scratchAverageEnd = ?, isLocked = ?, user = ? " +
+					"WHERE id = ?;";
+			
+			updateGameDayTable = connection.prepareStatement(query);
+			
+			// Game day delete query
+			query = "DELETE FROM weekly_results " + 
+					"WHERE id = ?;";
+			
+			deleteGameDayTable = connection.prepareStatement(query);
+			
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+			
+    /**
+     * Loads person data from the specified file. The current person data will
+     * be replaced.
+     */
+    public void loadBowlerData() {
+        try {
+        	ResultSet resultBowlerList = getBowlerTable.executeQuery();
+        	
+        	/* Cycle thru the records in the result set, assigning the field 
+        	 * values to the corresponding bowler object properties and 
+		 	 * adding them to the ArrayList<Bowler> collection
+		 	 */
+         	bowlerData.clear();
+         	
+         	while (resultBowlerList.next()) {
+         		Bowler bowler = new Bowler();
+        		bowler.setBowlerID(resultBowlerList.getInt("bowlerID"));
+        		bowler.setBowlerType(resultBowlerList.getString("bowlerType"));
+        		bowler.setFirstName(resultBowlerList.getString("firstName"));
+        		bowler.setMiddleName(resultBowlerList.getString("middleName"));
+        		bowler.setLastName(resultBowlerList.getString("lastName"));
+        		bowler.setSuffixName(resultBowlerList.getString("suffixName"));
+        		bowler.setNickname(resultBowlerList.getString("nickname"));
+        		bowler.setSex(resultBowlerList.getString("sex"));
+//        		bowler.setBirthday((LocalDate)resultBowlerList.getDate("dateOfBirth"));
+        		bowler.setUser(resultBowlerList.getString("user"));
+//        		bowler.setLastUpdate(resultBowlerList.getString("lastUpdate"));
+        		
+        		bowlerData.add(bowler);
+//        		System.out.println(bowlerData);
+      
+        	}
+        }
+        
+        catch( SQLException e ) {
+        	System.out.println( "SQLException: " + e.getMessage() );
+        	System.out.println( "SQLState:     " + e.getSQLState() );
+        	System.out.println( "VendorError:  " + e.getErrorCode() );
+        	e.printStackTrace();
+        }
+    }
+
+    /**
+     * Loads person data from the specified file. The current person data will
+     * be replaced.
+     * 
+     * @param file
+     */
+    public void loadLeagueData() {
+        try {
+        	ResultSet resultLeagueList = getLeagueTable.executeQuery();
+        	
+        	/* Cycle thru the records in the result set, assigning the field 
+        	 * values to the corresponding league object properties and 
+		 	 * adding them to the ArrayList<League> collection
+		 	 */
+        	leagueData.clear();
+         	
+         	while (resultLeagueList.next()) {
+         		League league = new League();
+         		league.setLeagueID(resultLeagueList.getInt("leagueID"));
+         		league.setLeagueName(resultLeagueList.getString("leagueName"));
+         		league.setSanctionCenter(resultLeagueList.getString("sanctionCenter"));
+         		league.setTotalWeeks(resultLeagueList.getInt("totalWeeks"));
+         		league.setHasHandicap(resultLeagueList.getBoolean("hasHandicap"));
+         		league.setHandicapTarget(resultLeagueList.getFloat("handicapTarget"));
+         		league.setHandicapPercent(resultLeagueList.getFloat("handicapPercent"));
+         		league.setHandicapMax(resultLeagueList.getFloat("handicapMax"));
+         		league.setUser(resultLeagueList.getString("user"));
+//        		bowler.setLastUpdate(resultBowlerList.getString("lastUpdate"));
+        		
+        		leagueData.add(league);
+        	}
+        }
+        
+        catch( SQLException e ) {
+        	System.out.println( "SQLException: " + e.getMessage() );
+        	System.out.println( "SQLState:     " + e.getSQLState() );
+        	System.out.println( "VendorError:  " + e.getErrorCode() );
+        	e.printStackTrace();
+        }
+    }
+
+    /**
+     * Saves the current person data to the specified file.
+     * 
+     * @param file
+     */
+    public void saveBowlerDataToDB(File file) {
+        try {
+            JAXBContext context = JAXBContext
+                    .newInstance(BowlerListWrapper.class);
+            Marshaller m = context.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            // Wrapping our person data.
+            BowlerListWrapper wrapper = new BowlerListWrapper();
+            wrapper.setBowlers(bowlerData);
+
+            // Marshalling and saving XML to the file.
+            m.marshal(wrapper, file);
+
+            // Save the file path to the registry.
+            setPersonFilePath(file);
+        } catch (Exception e) { // catches ANY exception
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Could not save data");
+            alert.setContentText("Could not save data to file:\n" + file.getPath());
+
+            alert.showAndWait();
+        }
+    }
+
+	private void addBowler() {
+		// Get values from text fields
+/*		String bowlerId = tfBowlerID.getText();
+		String firstName = tfFirstName.getText();
+		String middleName = tfMiddleName.getText();
+		String lastName = tfLastName.getText();
+		String suffix = tfSuffix.getText();
+		String sex = tfSex.getText();
+		String dob = tfDOB.getText();
+		String bowlerType = tfBowlerType.getText();
+		String sanctionType = tfSanctionType.getText();
+		String sanctionYear = tfSanctionYear.getText();
+		String sanctionStatus = tfSanctionStatus.getText();
+		String sanctionCenter = tfSanctionCenter.getText();
+*/
+/*		try {
+			String queryString = 
+				"insert into bowler " +
+				"values ('" + bowlerId + "', '" +
+					firstName + "', '" +
+					middleName + "', '" +
+					lastName + "', '" +
+					suffix + "', '" +
+					sex + "', '" +
+					dob + "', '" +
+					bowlerType +  "', '" +
+					sanctionType +  "', '" +
+					sanctionYear +  "', '" +
+					sanctionStatus +  "', '" +
+					sanctionCenter + "');";
+					
+			stmt.executeUpdate(queryString);
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+*/	}
 }

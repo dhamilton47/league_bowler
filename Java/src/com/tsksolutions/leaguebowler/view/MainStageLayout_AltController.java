@@ -15,7 +15,7 @@ import com.tsksolutions.leaguebowler.MainApp;
  * 
  * @author Dan J. Hamilton
  */
-public class MainStageLayoutController2 {
+public class MainStageLayout_AltController {
 
     // Reference to the main application
     private MainApp mainApp;
@@ -125,29 +125,4 @@ public class MainStageLayoutController2 {
     private void handleShowBirthdayStatistics() {
 //      mainApp.showBirthdayStatistics();
     }
-    
-    /**
-     * Show the LeagueOverview scene
-     */
-    @FXML
-    private void handleShowLeagueOverview() {
-    	mainApp.showLeagueOverview();
-    }
-    
-    /**
-     * Show the BowlerOverview scene
-     */
-    @FXML
-    private void handleShowBowlerOverview() {
-    	mainApp.showBowlerOverview();
-    }
-
-    /**
-     * Show the GameDayOverview scene
-     */
-    @FXML
-    private void handleShowGameDayOverview() {
-    	mainApp.showGameDayOverview();
-    }
-
 }

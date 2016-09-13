@@ -12,8 +12,8 @@ public class WelcomeController {
      * The constructor.
      * The constructor is called before the initialize() method.
      */
-    public WelcomeController() {
-    }
+//    public WelcomeController() {
+//    }
 
     /**
      * Initializes the controller class. This method is automatically called

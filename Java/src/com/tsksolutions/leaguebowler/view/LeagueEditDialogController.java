@@ -20,11 +20,15 @@ public class LeagueEditDialogController {
     @FXML
     private TextField sanctionCenterField;
     @FXML
+    private TextField totalWeeksField;
+    @FXML
     private TextField hasHandicapField;
     @FXML
     private TextField handicapTargetField;
     @FXML
     private TextField handicapPercentField;
+    @FXML
+    private TextField handicapMaxField;
 
 
     private Stage dialogStage;
@@ -58,9 +62,11 @@ public class LeagueEditDialogController {
 
         leagueNameField.setText(league.getLeagueName());
         sanctionCenterField.setText(league.getSanctionCenter());
+        totalWeeksField.setText(Integer.toString(league.getTotalWeeks()));
         hasHandicapField.setText(Boolean.toString(league.getHasHandicap()));
-        handicapTargetField.setText(Integer.toString(league.getHandicapTarget()));
+        handicapTargetField.setText(Float.toString(league.getHandicapTarget()));
         handicapPercentField.setText(Float.toString(league.getHandicapPercent()));
+        handicapMaxField.setText(Float.toString(league.getHandicapMax()));
     }
 
     /**
@@ -80,9 +86,11 @@ public class LeagueEditDialogController {
         if (isInputValid()) {
         	league.setLeagueName(leagueNameField.getText());
         	league.setSanctionCenter(sanctionCenterField.getText());
+        	league.setTotalWeeks(Integer.parseInt(totalWeeksField.getText()));
         	league.setHasHandicap(Boolean.parseBoolean(hasHandicapField.getText()));
-        	league.setHandicapTarget(Integer.parseInt(handicapTargetField.getText()));
+        	league.setHandicapTarget(Float.parseFloat(handicapTargetField.getText()));
         	league.setHandicapPercent(Float.parseFloat(handicapPercentField.getText()));
+        	league.setHandicapMax(Float.parseFloat(handicapMaxField.getText()));
 
             okClicked = true;
             dialogStage.close();
@@ -124,6 +132,17 @@ public class LeagueEditDialogController {
             }
         }
 
+        if (totalWeeksField.getText() == null || totalWeeksField.getText().length() == 0) {
+            errorMessage += "No valid total weeks for season!\n"; 
+        } else {
+            // try to parse the total weeks into an float.
+            try {
+                Integer.parseInt(handicapTargetField.getText());
+            } catch (NumberFormatException e) {
+                errorMessage += "No valid total weeks (must be an integer)!\n"; 
+            }
+        }
+
         if (handicapTargetField.getText() == null || handicapTargetField.getText().length() == 0) {
             errorMessage += "No valid handicap target!\n"; 
         } else {
@@ -142,7 +161,18 @@ public class LeagueEditDialogController {
             try {
                 Float.parseFloat(handicapPercentField.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "No valid handicap percent (must be an decimal)!\n"; 
+                errorMessage += "No valid handicap percent (must be a decimal)!\n"; 
+            }
+        }
+
+        if (handicapMaxField.getText() == null || handicapMaxField.getText().length() == 0) {
+            errorMessage += "No valid handicap max!\n"; 
+        } else {
+            // try to parse the handicap max into a float.
+            try {
+                Float.parseFloat(handicapMaxField.getText());
+            } catch (NumberFormatException e) {
+                errorMessage += "No valid handicap max (must be an integer)!\n"; 
             }
         }
 

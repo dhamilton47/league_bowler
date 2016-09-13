@@ -19,17 +19,34 @@ public class BowlerOverviewController {
     private TableColumn<Bowler, String> lastNameColumn;
 
     @FXML
+    private Label bowlerTypeLabel;
+    @FXML
     private Label firstNameLabel;
+    @FXML
+    private Label middleNameLabel;
     @FXML
     private Label lastNameLabel;
     @FXML
-    private Label streetLabel;
+    private Label suffixNameLabel;
     @FXML
-    private Label postalCodeLabel;
+    private Label nicknameLabel;
+    @FXML
+    private Label sexLabel;
+    @FXML
+    private Label birthdayLabel;
+
+    
+    
+    @FXML
+    private Label addressLine1Label;
+    @FXML
+    private Label addressLine2Label;
     @FXML
     private Label cityLabel;
     @FXML
-    private Label birthdayLabel;
+    private Label stateLabel;
+    @FXML
+    private Label zipCodeLabel;
 
     // Reference to the main application.
     private MainApp mainApp;
@@ -80,20 +97,34 @@ public class BowlerOverviewController {
     private void showBowlerDetails(Bowler bowler) {
     	if (bowler != null) {
     		// Fill the labels with info from the bowler object.
+    		bowlerTypeLabel.setText(bowler.getBowlerType());
     		firstNameLabel.setText(bowler.getFirstName());
+    		middleNameLabel.setText(bowler.getMiddleName());
     		lastNameLabel.setText(bowler.getLastName());
-    		streetLabel.setText(bowler.getStreet());
-    		postalCodeLabel.setText(Integer.toString(bowler.getPostalCode()));
-    		cityLabel.setText(bowler.getCity());
+    		suffixNameLabel.setText(bowler.getSuffixName());
+    		nicknameLabel.setText(bowler.getNickname());
+    		sexLabel.setText(bowler.getSex());
     		birthdayLabel.setText(DateUtil.format(bowler.getBirthday()));
+    		addressLine1Label.setText(bowler.getAddressLine1());
+    		addressLine2Label.setText(bowler.getAddressLine2());
+    		cityLabel.setText(bowler.getCity());
+    		stateLabel.setText(bowler.getState());
+    		zipCodeLabel.setText(Integer.toString(bowler.getZipCode()));
     	} else {
     		// Bowler id null, remove all the text.
+    		bowlerTypeLabel.setText("");
     		firstNameLabel.setText("");
+    		middleNameLabel.setText("");
     		lastNameLabel.setText("");
-    		streetLabel.setText("");
-    		postalCodeLabel.setText("");
-    		cityLabel.setText("");
+    		suffixNameLabel.setText("");
+    		nicknameLabel.setText("");
+    		sexLabel.setText("");
     		birthdayLabel.setText("");
+    		addressLine1Label.setText("");
+    		addressLine2Label.setText("");
+    		cityLabel.setText("");
+    		stateLabel.setText("");
+    		zipCodeLabel.setText("");
     	}
     }
     
