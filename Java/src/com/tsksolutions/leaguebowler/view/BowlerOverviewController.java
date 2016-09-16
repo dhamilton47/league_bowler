@@ -103,7 +103,7 @@ public class BowlerOverviewController {
     		lastNameLabel.setText(bowler.getLastName());
     		suffixNameLabel.setText(bowler.getSuffixName());
     		nicknameLabel.setText(bowler.getNickname());
-    		sexLabel.setText(bowler.getSex());
+//    		sexLabel.setText(bowler.getSex());
     		birthdayLabel.setText(DateUtil.format(bowler.getBirthday()));
     		addressLine1Label.setText(bowler.getAddressLine1());
     		addressLine2Label.setText(bowler.getAddressLine2());

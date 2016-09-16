@@ -3,6 +3,7 @@ package com.tsksolutions.leaguebowler.view;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import com.tsksolutions.leaguebowler.model.League;
@@ -16,19 +17,19 @@ import com.tsksolutions.leaguebowler.model.League;
 public class LeagueEditDialogController {
 
     @FXML
-    private TextField leagueNameField;
+    private TextField fldLeagueName;
     @FXML
-    private TextField sanctionCenterField;
+    private TextField fldSanctionCenter;
     @FXML
-    private TextField totalWeeksField;
+    private TextField fldTotalWeeks;
     @FXML
-    private TextField hasHandicapField;
+    private RadioButton rbHasHandicap;
     @FXML
-    private TextField handicapTargetField;
+    private TextField fldHandicapTarget;
     @FXML
-    private TextField handicapPercentField;
+    private TextField fldHandicapPercent;
     @FXML
-    private TextField handicapMaxField;
+    private TextField fldHandicapMax;
 
 
     private Stage dialogStage;
@@ -60,13 +61,13 @@ public class LeagueEditDialogController {
     public void setLeague(League league) {
         this.league = league;
 
-        leagueNameField.setText(league.getLeagueName());
-        sanctionCenterField.setText(league.getSanctionCenter());
-        totalWeeksField.setText(Integer.toString(league.getTotalWeeks()));
-        hasHandicapField.setText(Boolean.toString(league.getHasHandicap()));
-        handicapTargetField.setText(Float.toString(league.getHandicapTarget()));
-        handicapPercentField.setText(Float.toString(league.getHandicapPercent()));
-        handicapMaxField.setText(Float.toString(league.getHandicapMax()));
+        fldLeagueName.setText(league.getLeagueName());
+        fldSanctionCenter.setText(league.getSanctionCenter());
+        fldTotalWeeks.setText(Integer.toString(league.getTotalWeeks()));
+        rbHasHandicap.setText(Boolean.toString(league.getHasHandicap()));
+        fldHandicapTarget.setText(Float.toString(league.getHandicapTarget()));
+        fldHandicapPercent.setText(Float.toString(league.getHandicapPercent()));
+        fldHandicapMax.setText(Float.toString(league.getHandicapMax()));
     }
 
     /**
@@ -84,13 +85,13 @@ public class LeagueEditDialogController {
     @FXML
     private void handleOk() {
         if (isInputValid()) {
-        	league.setLeagueName(leagueNameField.getText());
-        	league.setSanctionCenter(sanctionCenterField.getText());
-        	league.setTotalWeeks(Integer.parseInt(totalWeeksField.getText()));
-        	league.setHasHandicap(Boolean.parseBoolean(hasHandicapField.getText()));
-        	league.setHandicapTarget(Float.parseFloat(handicapTargetField.getText()));
-        	league.setHandicapPercent(Float.parseFloat(handicapPercentField.getText()));
-        	league.setHandicapMax(Float.parseFloat(handicapMaxField.getText()));
+        	league.setLeagueName(fldLeagueName.getText());
+        	league.setSanctionCenter(fldSanctionCenter.getText());
+        	league.setTotalWeeks(Integer.parseInt(fldTotalWeeks.getText()));
+        	league.setHasHandicap(Boolean.parseBoolean(rbHasHandicap.getText()));
+        	league.setHandicapTarget(Float.parseFloat(fldHandicapTarget.getText()));
+        	league.setHandicapPercent(Float.parseFloat(fldHandicapPercent.getText()));
+        	league.setHandicapMax(Float.parseFloat(fldHandicapMax.getText()));
 
             okClicked = true;
             dialogStage.close();
@@ -113,64 +114,64 @@ public class LeagueEditDialogController {
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if (leagueNameField.getText() == null || leagueNameField.getText().length() == 0) {
+        if (fldLeagueName.getText() == null || fldLeagueName.getText().length() == 0) {
             errorMessage += "No valid league name!\n"; 
         }
 
-        if (sanctionCenterField.getText() == null || sanctionCenterField.getText().length() == 0) {
+        if (fldSanctionCenter.getText() == null || fldSanctionCenter.getText().length() == 0) {
             errorMessage += "No valid bowling center!\n"; 
         }
 
-        if (hasHandicapField.getText() == null || hasHandicapField.getText().length() == 0) {
+        if (rbHasHandicap.getText() == null || rbHasHandicap.getText().length() == 0) {
             errorMessage += "No valid handicap option!\n"; 
         } else {
             // try to parse the has handicap option into a boolean.
             try {
-                Boolean.parseBoolean(hasHandicapField.getText());
+                Boolean.parseBoolean(rbHasHandicap.getText());
             } catch (NumberFormatException e) {
                 errorMessage += "No valid has handicap option (must be a boolean)!\n"; 
             }
         }
 
-        if (totalWeeksField.getText() == null || totalWeeksField.getText().length() == 0) {
+        if (fldTotalWeeks.getText() == null || fldTotalWeeks.getText().length() == 0) {
             errorMessage += "No valid total weeks for season!\n"; 
         } else {
             // try to parse the total weeks into an float.
             try {
-                Integer.parseInt(handicapTargetField.getText());
+                Integer.parseInt(fldHandicapTarget.getText());
             } catch (NumberFormatException e) {
                 errorMessage += "No valid total weeks (must be an integer)!\n"; 
             }
         }
 
-        if (handicapTargetField.getText() == null || handicapTargetField.getText().length() == 0) {
+        if (fldHandicapTarget.getText() == null || fldHandicapTarget.getText().length() == 0) {
             errorMessage += "No valid handicap target!\n"; 
         } else {
             // try to parse the handicap target into an int.
             try {
-                Integer.parseInt(handicapTargetField.getText());
+                Integer.parseInt(fldHandicapTarget.getText());
             } catch (NumberFormatException e) {
                 errorMessage += "No valid handicap target (must be an integer)!\n"; 
             }
         }
 
-        if (handicapPercentField.getText() == null || handicapPercentField.getText().length() == 0) {
+        if (fldHandicapPercent.getText() == null || fldHandicapPercent.getText().length() == 0) {
             errorMessage += "No valid handicap percent!\n"; 
         } else {
             // try to parse the handicap percent into a float.
             try {
-                Float.parseFloat(handicapPercentField.getText());
+                Float.parseFloat(fldHandicapPercent.getText());
             } catch (NumberFormatException e) {
                 errorMessage += "No valid handicap percent (must be a decimal)!\n"; 
             }
         }
 
-        if (handicapMaxField.getText() == null || handicapMaxField.getText().length() == 0) {
+        if (fldHandicapMax.getText() == null || fldHandicapMax.getText().length() == 0) {
             errorMessage += "No valid handicap max!\n"; 
         } else {
             // try to parse the handicap max into a float.
             try {
-                Float.parseFloat(handicapMaxField.getText());
+                Float.parseFloat(fldHandicapMax.getText());
             } catch (NumberFormatException e) {
                 errorMessage += "No valid handicap max (must be an integer)!\n"; 
             }

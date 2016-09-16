@@ -1,6 +1,5 @@
 package com.tsksolutions.leaguebowler;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,15 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
-import java.util.prefs.Preferences;
+//import java.time.LocalDate;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 
 import com.tsksolutions.leaguebowler.model.Bowler;
-import com.tsksolutions.leaguebowler.model.BowlerListWrapper;
+//import com.tsksolutions.leaguebowler.model.BowlerListWrapper;
 import com.tsksolutions.leaguebowler.view.BowlerEditDialogController;
 import com.tsksolutions.leaguebowler.view.BowlerOverviewController;
 
@@ -71,7 +66,7 @@ public class MainApp extends Application {
 	private String password = "trouble";
 
     /**
-     * The data are observable lists of Bowlers and Leagues.
+     * The main data are observable lists of Bowlers, Leagues and Weekly Results.
      */
     private ObservableList<Bowler> bowlerData = FXCollections.observableArrayList();
     private ObservableList<League> leagueData = FXCollections.observableArrayList();
@@ -82,16 +77,6 @@ public class MainApp extends Application {
      */
     public MainApp() {
         // Add some sample data
-/*        personData.add(new Person("Hans", "Muster"));
-        personData.add(new Person("Ruth", "Mueller"));
-        personData.add(new Person("Heinz", "Kurz"));
-        personData.add(new Person("Cornelia", "Meier"));
-        personData.add(new Person("Werner", "Meyer"));
-        personData.add(new Person("Lydia", "Kunz"));
-        personData.add(new Person("Anna", "Best"));
-        personData.add(new Person("Stefan", "Meier"));
-        personData.add(new Person("Martin", "Mueller"));
-*/
     }
 
     /**
@@ -157,16 +142,10 @@ public class MainApp extends Application {
             controller.setMainApp(this);
             
             primaryStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        // Try to load the last opened person file.
-/*        File file = getPersonFilePath();
-        if (file != null) {
-        	loadBowlerDataFromFile(file);
-        }
-*/
     }
 
     /**
@@ -213,6 +192,53 @@ public class MainApp extends Application {
     }
 
     /**
+     * Shows the league overview inside the main stage layout.
+     */
+    public void showLeagueOverview() {
+        try {
+            // Load league overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/LeagueOverview.fxml"));
+            AnchorPane leagueOverview = (AnchorPane) loader.load();
+
+            // Set league overview into the center of root layout.
+            mainStageLayout.setCenter(leagueOverview);
+
+            // Give the controller access to the main app.
+            LeagueOverviewController controller = loader.getController();
+            controller.setMainApp(this);
+            
+            // Try to load the league table.
+        	loadLeagueData();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Shows the game day overview inside the main stage layout.
+     */
+    public void showGameDayOverview() {
+        try {
+            // Load game day overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/GameDayOverview.fxml"));
+            AnchorPane gameDayOverview = (AnchorPane) loader.load();
+
+            // Set game day overview into the center of root layout.
+            mainStageLayout.setCenter(gameDayOverview);
+
+            // Give the controller access to the main app.
+            GameDayOverviewController controller = loader.getController();
+            controller.setMainApp(this);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Opens a dialog to edit details for the specified bowler. If the user
      * clicks OK, the changes are saved into the provided bowler object and true
      * is returned.
@@ -251,31 +277,6 @@ public class MainApp extends Application {
         }
     }
     
-    /**
-     * Shows the league overview inside the main stage layout.
-     */
-    public void showLeagueOverview() {
-        try {
-            // Load league overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/LeagueOverview.fxml"));
-            AnchorPane leagueOverview = (AnchorPane) loader.load();
-
-            // Set league overview into the center of root layout.
-            mainStageLayout.setCenter(leagueOverview);
-
-            // Give the controller access to the main app.
-            LeagueOverviewController controller = loader.getController();
-            controller.setMainApp(this);
-            
-            // Try to load the league table.
-        	loadLeagueData();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * Opens a dialog to edit details for the specified league. If the user
      * clicks OK, the changes are saved into the provided league object and true
@@ -316,28 +317,6 @@ public class MainApp extends Application {
     }
 
     /**
-     * Shows the game day overview inside the main stage layout.
-     */
-    public void showGameDayOverview() {
-        try {
-            // Load game day overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/GameDayOverview.fxml"));
-            AnchorPane gameDayOverview = (AnchorPane) loader.load();
-
-            // Set game day overview into the center of root layout.
-            mainStageLayout.setCenter(gameDayOverview);
-
-            // Give the controller access to the main app.
-            GameDayOverviewController controller = loader.getController();
-            controller.setMainApp(this);
-            
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Opens a dialog to edit details for the specified league. If the user
      * clicks OK, the changes are saved into the provided league object and true
      * is returned.
@@ -373,133 +352,6 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
-        }
-    }
-
-    /**
-     * Returns the person file preference, i.e. the file that was last opened.
-     * The preference is read from the OS specific registry. If no such
-     * preference can be found, null is returned.
-     * 
-     * @return
-     */
-    public File getPersonFilePath() {
-        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-        String filePath = prefs.get("filePath", null);
-        if (filePath != null) {
-            return new File(filePath);
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Sets the file path of the currently loaded file. The path is persisted in
-     * the OS specific registry.
-     * 
-     * @param file the file or null to remove the path
-     */
-    public void setPersonFilePath(File file) {
-        Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-        if (file != null) {
-            prefs.put("filePath", file.getPath());
-
-            // Update the stage title.
-            primaryStage.setTitle("League Bowler - " + file.getName());
-        } else {
-            prefs.remove("filePath");
-
-            // Update the stage title.
-            primaryStage.setTitle("League Bowler");
-        }
-    }
-
-    /**
-     * Loads person data from the specified file. The current person data will
-     * be replaced.
-     * 
-     * @param file
-     */
-    public void loadBowlerDataFromFile(File file) {
-        try {
-            JAXBContext context = JAXBContext
-                    .newInstance(BowlerListWrapper.class);
-            Unmarshaller um = context.createUnmarshaller();
-
-            // Reading XML from the file and unmarshalling.
-            BowlerListWrapper wrapper = (BowlerListWrapper) um.unmarshal(file);
-
-            bowlerData.clear();
-            bowlerData.addAll(wrapper.getBowlers());
-
-            // Save the file path to the registry.
-            setPersonFilePath(file);
-
-        } catch (Exception e) { // catches ANY exception
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Could not load data");
-            alert.setContentText("Could not load data from file:\n" + file.getPath());
-
-            alert.showAndWait();
-        }
-    }
-
-    /**
-     * Saves the current person data to the specified file.
-     * 
-     * @param file
-     */
-    public void saveBowlerDataToFile(File file) {
-        try {
-            JAXBContext context = JAXBContext
-                    .newInstance(BowlerListWrapper.class);
-            Marshaller m = context.createMarshaller();
-            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-            // Wrapping our person data.
-            BowlerListWrapper wrapper = new BowlerListWrapper();
-            wrapper.setBowlers(bowlerData);
-
-            // Marshalling and saving XML to the file.
-            m.marshal(wrapper, file);
-
-            // Save the file path to the registry.
-            setPersonFilePath(file);
-        } catch (Exception e) { // catches ANY exception
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Could not save data");
-            alert.setContentText("Could not save data to file:\n" + file.getPath());
-
-            alert.showAndWait();
-        }
-    }
-
-    /**
-     * Opens a dialog to show birthday statistics.
-     */
-    public void showBirthdayStatistics() {
-        try {
-            // Load the fxml file and create a new stage for the popup.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/BirthdayStatistics.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Birthday Statistics");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            // Set the persons into the controller.
-//            BirthdayStatisticsController controller = loader.getController();
-//            controller.setBowlerData(bowlerData);
-
-            dialogStage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -551,21 +403,21 @@ public class MainApp extends Application {
 			deleteBowlerTable = connection.prepareStatement(query);
 			
 			// League table select query
-			query = "SELECT leagueID, leagueName, sanctionCenter, totalWeeks, hasHandicap, handicapTarget, handicapPercent, handicapMax, user, lastUpdate " +
+			query = "SELECT leagueID, leagueName, sanctionCenter, totalWeeks, leagueType, hasHandicap, handicapTarget, handicapPercent, handicapMax, user, lastUpdate " +
 					"FROM league";
 			
 			getLeagueTable = connection.prepareStatement(query);
 			
 			// League table add query
 			query = "INSERT INTO league " +
-					"(leagueName, sanctionCenter, totalWeeks, hasHandicap, handicapTarget, handicapPercent, handicapMax, user) " +
-					"VALUES (?, ?, ?, ?, ?, ?, ?, user);";
+					"(leagueName, sanctionCenter, totalWeeks, leagueType, hasHandicap, handicapTarget, handicapPercent, handicapMax, user) " +
+					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, user);";
 			
 			addLeagueTable = connection.prepareStatement(query);
 			
 			// League table update query
 			query = "UPDATE league " +
-					"SET leagueName = ?, sanctionCenter = ?, totalWeeks = ?, hasHandicap = ?, handicapTarget = ?, handicapPercent = ?, handicapMax = ?, user = ? " +
+					"SET leagueName = ?, sanctionCenter = ?, totalWeeks = ?, leagueType = ?, hasHandicap = ?, handicapTarget = ?, handicapPercent = ?, handicapMax = ?, user = ? " +
 					"WHERE leagueID = ?;";
 			
 			updateLeagueTable = connection.prepareStatement(query);
@@ -668,8 +520,6 @@ public class MainApp extends Application {
     /**
      * Loads person data from the specified file. The current person data will
      * be replaced.
-     * 
-     * @param file
      */
     public void loadLeagueData() {
         try {
@@ -687,6 +537,7 @@ public class MainApp extends Application {
          		league.setLeagueName(resultLeagueList.getString("leagueName"));
          		league.setSanctionCenter(resultLeagueList.getString("sanctionCenter"));
          		league.setTotalWeeks(resultLeagueList.getInt("totalWeeks"));
+         		league.setLeagueType(resultLeagueList.getString("leagueType"));
          		league.setHasHandicap(resultLeagueList.getBoolean("hasHandicap"));
          		league.setHandicapTarget(resultLeagueList.getFloat("handicapTarget"));
          		league.setHandicapPercent(resultLeagueList.getFloat("handicapPercent"));
@@ -711,29 +562,51 @@ public class MainApp extends Application {
      * 
      * @param file
      */
-    public void saveBowlerDataToDB(File file) {
-        try {
-            JAXBContext context = JAXBContext
-                    .newInstance(BowlerListWrapper.class);
-            Marshaller m = context.createMarshaller();
-            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-            // Wrapping our person data.
-            BowlerListWrapper wrapper = new BowlerListWrapper();
-            wrapper.setBowlers(bowlerData);
-
-            // Marshalling and saving XML to the file.
-            m.marshal(wrapper, file);
-
-            // Save the file path to the registry.
-            setPersonFilePath(file);
-        } catch (Exception e) { // catches ANY exception
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Could not save data");
-            alert.setContentText("Could not save data to file:\n" + file.getPath());
-
-            alert.showAndWait();
+    public void saveBowlerData() {
+/*
+ *			query = "INSERT INTO bowler " +
+ *					"(bowlerType, firstName, middleName, lastName, suffixName, nickname, sex, dateOfBirth, user) " +
+ *					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, user);";
+ *
+ *			addBowlerTable = connection.prepareStatement(query);
+ *
+ */
+    	
+    	try {
+//    		addBowlerTable.setString(1, bowlerTypeLabel);
+    		ResultSet resultBowlerList = getBowlerTable.executeQuery();
+        	
+        	/* Cycle thru the records in the result set, assigning the field 
+        	 * values to the corresponding bowler object properties and 
+		 	 * adding them to the ArrayList<Bowler> collection
+		 	 */
+         	bowlerData.clear();
+         	
+         	while (resultBowlerList.next()) {
+         		Bowler bowler = new Bowler();
+        		bowler.setBowlerID(resultBowlerList.getInt("bowlerID"));
+        		bowler.setBowlerType(resultBowlerList.getString("bowlerType"));
+        		bowler.setFirstName(resultBowlerList.getString("firstName"));
+        		bowler.setMiddleName(resultBowlerList.getString("middleName"));
+        		bowler.setLastName(resultBowlerList.getString("lastName"));
+        		bowler.setSuffixName(resultBowlerList.getString("suffixName"));
+        		bowler.setNickname(resultBowlerList.getString("nickname"));
+        		bowler.setSex(resultBowlerList.getString("sex"));
+//        		bowler.setBirthday((LocalDate)resultBowlerList.getDate("dateOfBirth"));
+        		bowler.setUser(resultBowlerList.getString("user"));
+//        		bowler.setLastUpdate(resultBowlerList.getString("lastUpdate"));
+        		
+        		bowlerData.add(bowler);
+//        		System.out.println(bowlerData);
+      
+        	}
+        }
+        
+        catch( SQLException e ) {
+        	System.out.println( "SQLException: " + e.getMessage() );
+        	System.out.println( "SQLState:     " + e.getSQLState() );
+        	System.out.println( "VendorError:  " + e.getErrorCode() );
+        	e.printStackTrace();
         }
     }
 
@@ -774,4 +647,32 @@ public class MainApp extends Application {
 			ex.printStackTrace();
 		}
 */	}
+
+    /**
+     * Opens a dialog to show birthday statistics.
+     */
+    public void showBirthdayStatistics() {
+        try {
+            // Load the fxml file and create a new stage for the popup.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/BirthdayStatistics.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Birthday Statistics");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the persons into the controller.
+//            BirthdayStatisticsController controller = loader.getController();
+//            controller.setBowlerData(bowlerData);
+
+            dialogStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

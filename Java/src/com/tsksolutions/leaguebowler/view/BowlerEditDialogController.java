@@ -5,7 +5,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import com.tsksolutions.leaguebowler.model.Bowler;
 import com.tsksolutions.leaguebowler.util.DateUtil;
@@ -18,7 +20,7 @@ import com.tsksolutions.leaguebowler.util.DateUtil;
 public class BowlerEditDialogController {
 
     @FXML
-    private ComboBox bowlerTypeBox;
+    private ComboBox<String> bowlerTypeBox;
     @FXML
     private TextField firstNameField;
     @FXML
@@ -31,7 +33,11 @@ public class BowlerEditDialogController {
     private TextField nicknameField;
 //    TODO: set up option group for sex field
     @FXML
-    private TextField sexField;
+    private ToggleGroup sexToggleGroup;
+    @FXML
+    private RadioButton sexFemale;
+    @FXML
+    private RadioButton sexMale;
     @FXML
     private DatePicker birthdayPicker;
 
@@ -88,7 +94,8 @@ public class BowlerEditDialogController {
         lastNameField.setText(bowler.getLastName());
         suffixNameField.setText(bowler.getSuffixName());
         nicknameField.setText(bowler.getNickname());
-        sexField.setText(bowler.getSex());
+        System.out.println(bowler.getBowlerType());
+//        sexToggleGroup.selectToggle(bowler.getSex());
         birthdayPicker.setValue(bowler.getBirthday());
 //        dateOfBirthPicker.setPromptText("dd.mm.yyyy");
     }
@@ -114,7 +121,7 @@ public class BowlerEditDialogController {
         	bowler.setLastName(lastNameField.getText());
         	bowler.setSuffixName(suffixNameField.getText());
         	bowler.setNickname(nicknameField.getText());
-        	bowler.setSex(sexField.getText());
+//        	bowler.setSex(sexField.getText());
         	bowler.setBirthday(birthdayPicker.getValue());
 
         	bowler.setAddressLine1(addressLine1Field.getText());
@@ -163,11 +170,11 @@ public class BowlerEditDialogController {
         if (nicknameField.getText() == null || nicknameField.getText().length() == 0) {
             nicknameField.setText(firstNameField.getText()); 
         }
-
+/*
         if (sexField.getText() == null || sexField.getText().length() == 0) {
             errorMessage += "No valid gender chosen!\n"; 
         }
-
+*/
         if (birthdayPicker.getValue() == null) {
             errorMessage += "No valid birthday!\n";
         }

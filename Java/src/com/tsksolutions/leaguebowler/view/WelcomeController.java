@@ -6,7 +6,8 @@ import javafx.fxml.FXML;
 
 public class WelcomeController {
     // Reference to the main application.
-    private MainApp mainApp;
+    @SuppressWarnings("unused")
+	private MainApp mainApp;
 
     /**
      * The constructor.

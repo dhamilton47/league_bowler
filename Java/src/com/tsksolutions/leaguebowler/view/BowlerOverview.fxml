@@ -34,68 +34,122 @@
                                  <center>
                                    			<GridPane BorderPane.alignment="CENTER">
                                      				<columnConstraints>
+                                       					<ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="170.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="10.0" />
                                        					<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                       					<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="50.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="10.0" />
                                      				</columnConstraints>
                                      				<rowConstraints>
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      			                                	<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      			                                	<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      			                                	<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      			                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      			                                	<RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+      			                                	<RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      			                                	<RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+      			                                    <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       			                                </rowConstraints>
       			                                <children>
-      			                                	<Label text="First Name" GridPane.rowIndex="1">
+      			                                	<Label text="Full Name" GridPane.rowIndex="3">
                                              <GridPane.margin>
                                                 <Insets left="10.0" />
                                              </GridPane.margin>
                                           </Label>
-      			                                    <Label text="Last Name" GridPane.rowIndex="3">
+      			                                    <Label alignment="CENTER_RIGHT" text="Sex" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                                              <GridPane.margin>
-                                                <Insets left="10.0" />
+                                                <Insets right="10.0" />
                                              </GridPane.margin>
                                           </Label>
-      			                                    <Label text="Sex" GridPane.rowIndex="6">
-                                             <GridPane.margin>
-                                                <Insets left="10.0" />
-                                             </GridPane.margin>
-                                          </Label>
-      			                                    <Label fx:id="firstNameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      			                                    <Label fx:id="lastNameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <AnchorPane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                             <children>
+            			                                    <Label fx:id="firstNameLabel" maxHeight="-Infinity" prefHeight="30.0" styleClass="label-bright" text="Label" AnchorPane.leftAnchor="10.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                                             <children>
+            			                                    <Label fx:id="lastNameLabel" maxHeight="-Infinity" prefHeight="30.0" styleClass="label-bright" text="Label" AnchorPane.leftAnchor="10.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
       			                                    <Label text="Birthday" GridPane.rowIndex="7">
                                              <GridPane.margin>
                                                 <Insets left="10.0" />
                                              </GridPane.margin>
                                           </Label>
-      			                                    <Label fx:id="birthdayLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                                          <Label text="Bowler Type">
+                                          <AnchorPane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                                             <children>
+            			                                    <Label fx:id="birthdayLabel" maxHeight="-Infinity" prefHeight="30.0" styleClass="label-bright" text="Label" AnchorPane.leftAnchor="10.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                          <Label text="Bowler Type" GridPane.rowIndex="1">
                                              <GridPane.margin>
                                                 <Insets left="10.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <Label fx:id="bowlerTypeLabel" text="Label" GridPane.columnIndex="1" />
-                                          <Label text="Middle Name" GridPane.rowIndex="2">
-                                             <GridPane.margin>
-                                                <Insets left="10.0" />
-                                             </GridPane.margin>
-                                          </Label>
-                                          <Label text="Suffix" GridPane.rowIndex="4">
-                                             <GridPane.margin>
-                                                <Insets left="10.0" />
-                                             </GridPane.margin>
-                                          </Label>
-                                          <Label fx:id="middleNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                          <Label fx:id="suffixNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                          <Label fx:id="sexLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                          <AnchorPane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                             <children>
+                                                <Label fx:id="bowlerTypeLabel" maxHeight="-Infinity" prefHeight="30.0" text="Label" AnchorPane.leftAnchor="10.0" GridPane.columnIndex="2">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane style="-fx-background-color: white;" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                             <children>
+                                                <Label fx:id="middleNameLabel" maxHeight="-Infinity" prefHeight="30.0" text="Label" AnchorPane.leftAnchor="10.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane style="-fx-background-color: white;" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                                             <children>
+                                                <Label fx:id="suffixNameLabel" maxHeight="-Infinity" prefHeight="30.0" text="Label" AnchorPane.leftAnchor="10.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane style="-fx-background-color: white;" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                             <children>
+                                                <Label fx:id="sexLabel" maxHeight="-Infinity" prefHeight="30.0" text="Label" AnchorPane.leftAnchor="10.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
                                           <Label text="Preferred Name (Nickname)" GridPane.rowIndex="5">
                                              <GridPane.margin>
                                                 <Insets left="10.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <Label fx:id="nicknameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                          <AnchorPane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                             <children>
+                                                <Label fx:id="nicknameLabel" maxHeight="-Infinity" prefHeight="30.0" text="Label" AnchorPane.leftAnchor="10.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
       			                                </children>
       			                         	</GridPane>
                                  </center>
@@ -127,47 +181,99 @@
                                  <center>
                                     <GridPane prefHeight="215.0" prefWidth="743.0" BorderPane.alignment="CENTER">
                                       <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="170.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="10.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="10.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="40.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="10.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="40.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="10.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="70.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="10.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="10.0" />
                                       </columnConstraints>
                                       <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <Label text="Street Address">
+                                          <Label text="Street Address" GridPane.rowIndex="1">
                                              <GridPane.margin>
                                                 <Insets left="10.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <Label text="Suite/Apt." GridPane.rowIndex="1">
+                                          <Label text="Suite/Apt." GridPane.rowIndex="3">
                                              <GridPane.margin>
                                                 <Insets left="10.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <Label text="City" GridPane.rowIndex="2">
+                                          <Label text="City" GridPane.rowIndex="5">
                                              <GridPane.margin>
                                                 <Insets left="10.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <Label text="State" GridPane.rowIndex="3">
+                                          <Label text="State" GridPane.columnIndex="4" GridPane.rowIndex="5">
                                              <GridPane.margin>
                                                 <Insets left="10.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <Label text="Zip Code" GridPane.rowIndex="4">
+                                          <Label text="Zip Code" GridPane.columnIndex="8" GridPane.rowIndex="5">
                                              <GridPane.margin>
                                                 <Insets left="10.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <Label fx:id="addressLine1Label" text="Label" GridPane.columnIndex="1" />
-                                          <Label fx:id="addressLine2Label" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <Label fx:id="cityLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                          <Label fx:id="stateLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                          <Label fx:id="zipCodeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <AnchorPane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.columnSpan="9" GridPane.rowIndex="1">
+                                             <children>
+                                                <Label fx:id="addressLine1Label" maxHeight="-Infinity" prefHeight="30.0" text="Label" AnchorPane.leftAnchor="10.0" GridPane.columnIndex="2">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.columnSpan="9" GridPane.rowIndex="3">
+                                             <children>
+                                                <Label fx:id="addressLine2Label" maxHeight="-Infinity" prefHeight="30.0" text="Label" AnchorPane.leftAnchor="10.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                             <children>
+                                                <Label fx:id="cityLabel" maxHeight="-Infinity" prefHeight="30.0" text="Label" AnchorPane.leftAnchor="10.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane style="-fx-background-color: white;" GridPane.columnIndex="6" GridPane.rowIndex="5">
+                                             <children>
+                                                <Label fx:id="stateLabel" maxHeight="-Infinity" prefHeight="30.0" text="Label" AnchorPane.leftAnchor="10.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane style="-fx-background-color: white;" GridPane.columnIndex="10" GridPane.rowIndex="5">
+                                             <children>
+                                                <Label fx:id="zipCodeLabel" maxHeight="-Infinity" prefHeight="30.0" text="Label" AnchorPane.leftAnchor="10.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
                                        </children>
                                     </GridPane>
                                  </center>
@@ -197,30 +303,39 @@
                                  <center>
                                     <GridPane prefHeight="181.0" prefWidth="743.0" BorderPane.alignment="CENTER">
                                       <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="170.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="10.0" />
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="10.0" />
                                       </columnConstraints>
                                       <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <Label text="Sanction Information Block">
+                                          <Label text="Sanction Information Block" GridPane.rowIndex="1">
                                              <GridPane.margin>
                                                 <Insets left="10.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <Label text="Label" GridPane.rowIndex="1">
+                                          <Label text="Label" GridPane.rowIndex="3">
                                              <GridPane.margin>
                                                 <Insets left="10.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <Label text="Label" GridPane.rowIndex="2">
+                                          <Label text="Label" GridPane.rowIndex="5">
                                              <GridPane.margin>
                                                 <Insets left="10.0" />
                                              </GridPane.margin>
                                           </Label>
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="5" />
                                        </children>
                                     </GridPane>
                                  </center>

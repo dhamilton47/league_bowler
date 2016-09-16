@@ -1,38 +1,59 @@
 package com.tsksolutions.leaguebowler.view;
 
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 //import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import com.tsksolutions.leaguebowler.MainApp;
+//import com.tsksolutions.leaguebowler.model.Bowler;
 import com.tsksolutions.leaguebowler.model.League;
 //import com.tsksolutions.leaguebowler.util.DateUtil;
+//import com.tsksolutions.leaguebowler.model.Week;
 
 public class LeagueOverviewController {
     @FXML
     private TableView<League> leagueTable;
-//    @FXML
-//    private TableColumn<League, Integer> leagueIDColumn;
     @FXML
     private TableColumn<League, String> leagueNameColumn;
 
     @FXML
-    private Label leagueNameLabel;
+    private Label lblLeagueName;
     @FXML
-    private Label sanctionCenterLabel;
+    private Label lblSanctionCenter;
     @FXML
-    private Label totalWeeksLabel;
+    private Label lblTotalWeeks;
     @FXML
-    private Label hasHandicapLabel;
+    private CheckBox cbHasHandicap;
+//    private Label lblHasHandicap;
     @FXML
-    private Label handicapTargetLabel;
+    private Label lblHandicapTarget;
     @FXML
-    private Label handicapPercentLabel;
+    private Label lblHandicapPercent;
     @FXML
-    private Label handicapMaxLabel;
+    private Label lblHandicapMax;
+    @FXML
+    private Label lblLeagueType;
+/*
+    private ObservableList<String> leagueTypes = FXCollections.observableArrayList("Adult", "Youth", "Adult/Youth");
+    public ObservableList<String> getLeagueTypes() {
+        return leagueTypes;
+    }
+    //System.out.print(leagueTypes.getLeagueTypes());
+
+    
+    
+
+    @FXML
+    private ComboBox<String> cboLeagueType = new ComboBox<>(leagueTypes);
+*/    
 
     // Reference to the main application.
     private MainApp mainApp;
@@ -50,8 +71,7 @@ public class LeagueOverviewController {
      */
     @FXML
     private void initialize() {
-        // Initialize the person table with the two columns.
-//        leagueIDColumn.setCellValueFactory(cellData -> cellData.getValue().leagueIDProperty());
+        // Initialize the league table view with the one visible column.
         leagueNameColumn.setCellValueFactory(cellData -> cellData.getValue().leagueNameProperty());
         
         // Clear league details.
@@ -83,24 +103,26 @@ public class LeagueOverviewController {
     private void showLeagueDetails(League league) {
     	if (league != null) {
     		// Fill the labels with info from the person object.
-//    		leagueIDLabel.setText(Integer.toString(league.getLeagueID()));
-    		leagueNameLabel.setText(league.getLeagueName());
-    		sanctionCenterLabel.setText(league.getSanctionCenter());
-    		totalWeeksLabel.setText(Integer.toString(league.getTotalWeeks()));
-    		hasHandicapLabel.setText(Boolean.toString(league.getHasHandicap()));
-    		handicapTargetLabel.setText(Float.toString(league.getHandicapTarget()));
-    		handicapPercentLabel.setText(Float.toString(league.getHandicapPercent()));
-    		handicapMaxLabel.setText(Float.toString(league.getHandicapMax()));
+    		lblLeagueName.setText(league.getLeagueName());
+    		lblSanctionCenter.setText(league.getSanctionCenter());
+    		lblTotalWeeks.setText(Integer.toString(league.getTotalWeeks()));
+    		lblLeagueType.setText(league.getLeagueType());
+    		
+    		cbHasHandicap.setSelected(league.getHasHandicap());
+    		lblHandicapTarget.setText(Float.toString(league.getHandicapTarget()));
+    		lblHandicapPercent.setText(Float.toString(league.getHandicapPercent()));
+    		lblHandicapMax.setText(Float.toString(league.getHandicapMax()));
+    		
     	} else {
     		// league id null, remove all the text.
-//    		leagueIDLabel.setText("");
-    		leagueNameLabel.setText("");
-    		sanctionCenterLabel.setText("");
-    		totalWeeksLabel.setText("");
-    		hasHandicapLabel.setText("");
-    		handicapTargetLabel.setText("");
-    		handicapPercentLabel.setText("");
-    		handicapMaxLabel.setText("");
+    		lblLeagueName.setText("");
+    		lblSanctionCenter.setText("");
+    		lblTotalWeeks.setText("");
+    		lblLeagueType.setText("");
+    		cbHasHandicap.setSelected(false);
+    		lblHandicapTarget.setText("");
+    		lblHandicapPercent.setText("");
+    		lblHandicapMax.setText("");
     	}
     }
     

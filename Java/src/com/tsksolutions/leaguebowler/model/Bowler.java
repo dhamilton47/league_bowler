@@ -1,18 +1,21 @@
 package com.tsksolutions.leaguebowler.model;
 
-import java.sql.Timestamp;
+//import java.sql.Timestamp;
 import java.time.LocalDate;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.tsksolutions.leaguebowler.util.LocalDateAdapter;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.LongProperty;
+//import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+//import javafx.beans.property.SimpleMapProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+//import javafx.scene.control.Toggle;
+//import javafx.scene.control.ToggleGroup;
 
 /**
  * Model class for a Bowler.
@@ -28,13 +31,10 @@ public class Bowler {
     private final StringProperty lastName;
     private final StringProperty suffixName;
     private final StringProperty nickname;
-    private final StringProperty sex;
+    private final StringProperty sex; 
     private final ObjectProperty<LocalDate> birthday;
     private final StringProperty user;
 //    private final Timestamp lastUpdate;
-//    private final IntegerProperty addressID;
-//    private final IntegerProperty sanctionID;
-//    private final IntegerProperty emailID;
     
     private final StringProperty addressLine1;
     private final StringProperty addressLine2;
@@ -60,7 +60,7 @@ public class Bowler {
      * @param middleName
      * @param lastName
      */
-    public Bowler(String firstName, String middleName, String lastName) {
+/*    public Bowler(String firstName, String middleName, String lastName) {
         this.firstName = new SimpleStringProperty(firstName);
         this.middleName = new SimpleStringProperty(middleName);
         this.lastName = new SimpleStringProperty(lastName);
@@ -70,7 +70,8 @@ public class Bowler {
         this.suffixName = new SimpleStringProperty("");
         this.nickname = new SimpleStringProperty("");
         this.bowlerType = new SimpleStringProperty("Youth");
-        this.sex = new SimpleStringProperty("M");
+//        this.sexToggleGroup = new SimpleMapProperty<Toggle>("M");
+//        this.sex = new SimpleStringProperty("M");
         this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
         this.addressLine1 = new SimpleStringProperty("some street");
         this.addressLine2 = new SimpleStringProperty("some suite");
@@ -80,7 +81,7 @@ public class Bowler {
         this.user = new SimpleStringProperty("Dan");
 //        this.lastUpdate = CURRENT_TIMESTAMP;
     }
-
+*/
     /**
      * Main Constructor - still contains some initial data.
      * 
@@ -210,6 +211,20 @@ public class Bowler {
         return sex;
     }
 
+/*
+     public Toggle getSexToggleGroup() {
+ 
+        return sexToggleGroup.getSelectedToggle();
+    }
+
+    public void setSexToggleGroup(Toggle sexToggleGroup) {
+        this.sexToggleGroup.readOnlyObjectProperty<Toggle>(sexToggleGroup);
+    }
+
+    public Toggle sexProperty() {
+        return sexToggleGroup;
+    }
+*/
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     public LocalDate getBirthday() {
         return birthday.get();

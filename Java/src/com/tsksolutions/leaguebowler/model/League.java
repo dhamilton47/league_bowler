@@ -28,6 +28,8 @@ public class League {
     private final StringProperty leagueName;
     private final StringProperty sanctionCenter;
     private final IntegerProperty totalWeeks;
+    private final StringProperty leagueType;
+    
     private final BooleanProperty hasHandicap;
     private final FloatProperty handicapTarget;
     private final FloatProperty handicapPercent;
@@ -38,21 +40,30 @@ public class League {
      * Default constructor.
      */
     public League() {
-        this(0, null, null, 0, false, 0f, 0f, 0f);
+        this(0, null, null, 0, null, false, 0f, 0f, 0f);
     }
 
     /**
      * Constructor with some initial data.
      * 
      * @param leagueID
-     * @param leagueName
+     * @param leagueName League Name
+     * @param sanctionCenter Bowling Center
+     * @param totalWeeks Number of weeks in the season
+     * @param leagueType e.g. "Adult", "Youth", etc.
+     * @param hasHandicap Does the league use a handicap?
+     * @param handicapTarget What is the basis for calculating the handicap?
+     * @param handicapPercent What percentage is applied to the target less average pinfall to determine the handicap?
+     * @param handicapMax What is the a maximum handicap allowed?
      */
-    public League(int leagueID, String leagueName, String sanctionCenter, int totalWeeks, 
+    public League(int leagueID, String leagueName, String sanctionCenter, int totalWeeks, String leagueType, 
     		boolean hasHandicap, float handicapTarget, float handicapPercent, float handicapMax) {
         this.leagueID = new SimpleIntegerProperty(leagueID);
         this.leagueName = new SimpleStringProperty(leagueName);
         this.sanctionCenter = new SimpleStringProperty(sanctionCenter);
         this.totalWeeks = new SimpleIntegerProperty(totalWeeks);
+        this.leagueType = new SimpleStringProperty(leagueType);
+        
         this.hasHandicap = new SimpleBooleanProperty(hasHandicap);
         this.handicapTarget = new SimpleFloatProperty(handicapTarget);
         this.handicapPercent = new SimpleFloatProperty(handicapPercent);
@@ -106,6 +117,18 @@ public class League {
 
     public IntegerProperty totalWeeksProperty() {
         return totalWeeks;
+    }
+
+    public String getLeagueType() {
+        return leagueType.get();
+    }
+
+    public void setLeagueType(String leagueType) {
+        this.leagueType.set(leagueType);
+    }
+
+    public StringProperty leagueTypeProperty() {
+        return leagueType;
     }
 
     public boolean getHasHandicap() {
